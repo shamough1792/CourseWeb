@@ -18,34 +18,66 @@ A web application for courses online platform.
 
 <br>
 
+* Create course, manage course, upload course material for admin role.
+<br>
 
+* Create Poll, manage poll for admin role.
+<br>
+
+* Comment function for courses and polls.
+<br>
+
+* Comment and Poll history page.
+<br>
+
+* Profile management.
 <br>
 
 ## Screenshot Of The App
 
 <br>
 
-
-
-<br>
-
-
+![Alt Text](images/login.png)
 
 <br>
 
-
-
-<br>
-
-
+![Alt Text](images/register.png)
 
 <br>
 
-
+![Alt Text](images/course_list.png)
 
 <br>
 
+![Alt Text](images/course_detail.png)
 
+<br>
+
+![Alt Text](images/edit_course.png)
+
+<br>
+
+![Alt Text](images/profile_edit.png)
+
+<br>
+
+![Alt Text](images/comment_history.png)
+
+<br>
+
+![Alt Text](images/poll_list.png)
+
+<br>
+
+![Alt Text](images/create_poll.png)
+
+<br>
+
+![Alt Text](images/poll_history.png)
+
+<br>
+
+![Alt Text](images/poll_detail.png)
 
 <br>
 
