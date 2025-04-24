@@ -36,7 +36,7 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand fw-bold">
+        <a href="<c:url value="/course" />" class="navbar-brand fw-bold">
             <i class="fas fa-university me-2"></i>Online Course Website
         </a>
         <div class="d-flex">

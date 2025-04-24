@@ -33,13 +33,25 @@
             border-radius: 4px;
             margin-bottom: 0.5rem;
         }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        @media (max-width: 768px) {
+            .action-buttons {
+                justify-content: flex-start;
+                margin-top: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand fw-bold">
+        <a href="<c:url value="/course" />" class="navbar-brand fw-bold">
             <i class="fas fa-university me-2"></i>Online Course Website
         </a>
         <div class="d-flex">
@@ -65,26 +77,24 @@
 
 <div class="container">
     <div class="content-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold text-primary">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+            <h2 class="fw-bold text-primary mb-3 mb-md-0">
                 <i class="fas fa-book me-2"></i>${ticket.subject}
             </h2>
-            <div>
+            <div class="action-buttons">
+                <a href="<c:url value="/course" />" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Course List
+                </a>
                 <security:authorize access="hasRole('ADMIN') or principal.username=='${ticket.customerName}'">
-                    <a href="<c:url value="/course/edit/${ticket.id}" />" class="btn btn-outline-secondary me-2">
-                        <i class="fas fa-edit me-1"></i>Edit Course
+                    <a href="<c:url value="/course/edit/${ticket.id}" />" class="btn btn-outline-secondary">
+                        <i class="fas fa-edit me-1"></i>Edit
                     </a>
                 </security:authorize>
                 <security:authorize access="hasRole('ADMIN')">
                     <a href="<c:url value="/course/delete/${ticket.id}" />" class="btn btn-outline-danger">
-                        <i class="fas fa-trash-alt me-1"></i>Delete Course
+                        <i class="fas fa-trash-alt me-1"></i>Delete
                     </a>
                 </security:authorize>
-                <div class="d-flex justify-content-end">
-                    <a href="<c:url value="/course" />" class="btn btn-outline-primary">
-                        <i class="fas fa-arrow-left me-1"></i>Return to courses list
-                    </a>
-                </div>
             </div>
         </div>
 
@@ -99,26 +109,25 @@
         </div>
 
         <c:if test="${!empty ticket.attachments}">
-        <div class="mb-4">
-            <h5 class="fw-bold mb-3">
-                <i class="fas fa-paperclip me-2"></i>Lecture Notes
-            </h5>
-            <div class="list-group">
-                <c:forEach items="${ticket.attachments}" var="attachment" varStatus="status">
-                    <div class="list-group-item attachment-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="fas fa-file me-2"></i>
-                            <a href="<c:url value="/course/${ticketId}/attachment/${attachment.id}" />" class="text-decoration-none">
-                                    ${attachment.name}
-                            </a>
+            <div class="mb-4">
+                <h5 class="fw-bold mb-3">
+                    <i class="fas fa-paperclip me-2"></i>Lecture Notes
+                </h5>
+                <div class="list-group">
+                    <c:forEach items="${ticket.attachments}" var="attachment" varStatus="status">
+                        <div class="list-group-item attachment-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-file me-2"></i>
+                                <a href="<c:url value="/course/${ticketId}/attachment/${attachment.id}" />" class="text-decoration-none">
+                                        ${attachment.name}
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </div>
             </div>
-        </div>
         </c:if>
 
-        <!-- Add this after the attachments section and before the return button -->
         <div class="mb-4">
             <h5 class="fw-bold mb-3">
                 <i class="fas fa-comments me-2"></i>Comments
@@ -173,13 +182,11 @@
                     return true;
                 }
             </script>
-
-            <br>
-
         </div>
+    </div>
+</div>
 
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
