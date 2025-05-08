@@ -22,18 +22,18 @@ public class editUserController {
     private UserDao userDao;
 
     @GetMapping("/edit")
-    public String editUserForm(Model model) {
+    public String editUserForm(Model model, @RequestParam(required = false) String targetUsername) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String currentUsername = auth.getName();
         boolean isAdmin = auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 
         try {
-            model.addAttribute("user", userDao.getUser(username));
+            String usernameToEdit = (isAdmin && targetUsername != null) ? targetUsername : currentUsername;
+            model.addAttribute("user", userDao.getUser(usernameToEdit));
             model.addAttribute("isAdmin", isAdmin);
             return "editUser";
         } catch (Exception e) {
-            // If user not found, redirect to logout to clear invalid session
             return "redirect:/logout";
         }
     }
@@ -43,6 +43,7 @@ public class editUserController {
     public String editUserSubmit(
             @ModelAttribute("user") UserDao.User user,
             @RequestParam(required = false) String password,
+            @RequestParam(required = false) String targetUsername,
             Model model,
             HttpServletRequest request,
             HttpServletResponse response) {
@@ -53,10 +54,7 @@ public class editUserController {
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 
         try {
-            String originalUsername = isAdmin && !user.getUsername().equals(currentUsername)
-                    ? currentUsername
-                    : user.getUsername();
-
+            String originalUsername = (isAdmin && targetUsername != null) ? targetUsername : currentUsername;
             String newUsername = user.getUsername();
 
             boolean usernameChanged = isAdmin && !newUsername.equals(originalUsername);
@@ -95,9 +93,6 @@ public class editUserController {
 
             return "redirect:/course/list?updateSuccess=true";
 
-        } catch (DataIntegrityViolationException e) {
-            model.addAttribute("error", "Failed to update user. Please try again.");
-            return "editUser";
         } catch (Exception e) {
             model.addAttribute("error", "Error: " + e.getMessage());
             return "editUser";

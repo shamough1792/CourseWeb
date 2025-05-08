@@ -115,6 +115,9 @@
                                     </c:forEach>
                                 </td>
                                 <td>
+                                    <a href="<c:url value="/user/edit?targetUsername=${user.username}" />" class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </a>
                                     <a href="<c:url value="/user/delete/${user.username}" />" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash-alt me-1"></i>Delete
                                     </a>

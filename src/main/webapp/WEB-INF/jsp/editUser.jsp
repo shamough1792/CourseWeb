@@ -74,6 +74,10 @@
         </c:if>
 
         <form:form method="POST" modelAttribute="user" action="${pageContext.request.contextPath}/user/edit">
+            <c:if test="${isAdmin}">
+                <input type="hidden" name="targetUsername" value="${user.username}"/>
+            </c:if>
+            
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <c:choose>
